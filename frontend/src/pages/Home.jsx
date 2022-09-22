@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div className=" d-flex justify-content-center align-items-center">
       <div className='w-100'>
-        <img src='https://i.ibb.co/Jt83ChV/Shop-Now.png' className='home-banner w-100 h-50' />
+        <img src='https://i.ibb.co/2KPHW3S/ef8083bfe79088dc00bd8eca9c821cd5.jpg' className='home-banner w-100 h-50' />
       {/* Featured Product */}
       <div className='featured-product-container container mt-4'>
         <h2>Latest Product</h2>

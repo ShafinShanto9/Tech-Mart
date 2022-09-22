@@ -1,43 +1,56 @@
 import React, { useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import '../resources/SignUp.css'
+import '../styles/signup.css'
+import { useSignupMutation } from '../services/appApi'
 
 const SignUp = () => {
+
+    const [name,setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const handleSubmit = () => {
-        
+    const [ signup, {isError, isLoading, error} ] = useSignupMutation()
+    
+    const handleSignup = (e) => {
+        e.preventDefault();
+        signup({ name, email, password });
     }
+
   return (
     <Container>
-        <Row>
-            <Col md={6} className='signup_form_container'>
-                <Form style={{width:'100%'}} onSubmit={handleSubmit}>
-                    <h1>Create an Account</h1>
-                      <Form.Group className='mb-3'>
-                          <Form.Label >Email Address</Form.Label>
-                          <Form.Control type='email' placeholder="type email address" value={email} required
-                          onChange={e => setEmail(e.target.value) }/>       
-                      </Form.Group>
-                      <Form.Group className='mb-3'>
-                          <Form.Label className='mb-3'>Password</Form.Label>
-                          <Form.Control type='password' placeholder="type password" value={password} required
-                          onChange={e => setPassword(e.target.value) }/>
-                      </Form.Group> 
-                      <Form.Group className='mb-3'>
-                          <Button type="submit">
-                              Login
-                          </Button>
-                      </Form.Group>
-                      <p>Already have an account? Please <Link to='/login'>Login</Link></p>
-                </Form>
-            </Col>      
-              <Col md={6} className='signup_image-container'>
-                
-              </Col>      
-        </Row>      
-    </Container>
+            <Row>
+                <Col md={6} className="signup__form--container">
+                    <Form style={{ width: "100%" }} onSubmit={handleSignup}>
+                        <h1>Create an account</h1>
+                        {isError && <Alert variant="danger">{error.data}</Alert>}
+                        <Form.Group>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" placeholder="Your name" value={name} required onChange={(e) => setName(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email" value={email} required onChange={(e) => setEmail(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Enter Password" value={password} required onChange={(e) => setPassword(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Button type="submit" disabled={isLoading}>
+                                Create account
+                            </Button>
+                        </Form.Group>
+                        <p className="pt-3 text-center">
+                            Don't have an account? <Link to="/login">Login</Link>{" "}
+                        </p>
+                    </Form>
+                </Col>
+                <Col md={6} className="signup__image--container"></Col>
+            </Row>
+        </Container>
   )
 }
 

@@ -1,9 +1,17 @@
 import React from 'react'
 import { Container, Nav, Navbar, Button, NavDropdown } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
+import { logout } from '../features/userSlice.js'
 import '../styles/Navigation.css'
 
+
 const Navigation = () => {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch()
+  const handleLogout = () => {
+    dispatch(logout())
+  }
   return (
     <div>
     <Navbar bg="light" expand="lg">
@@ -13,19 +21,43 @@ const Navigation = () => {
           </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link href="/login">Login</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav className="ms-auto">
+                {/* if no user */}
+                  {!user && (
+                      <LinkContainer to="/login">
+                          <Nav.Link>Login</Nav.Link>
+                      </LinkContainer>
+              )}
+              {/* If User exists */}
+              {
+                user && (
+                  <NavDropdown className='email-text' title={`Welcome 😀 ${user.email}`} id="basic-nav-dropdown">
+                  {user.isAdmin && (
+                    <>
+                     <LinkContainer to="/dashboard">
+                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                          </LinkContainer>
+                          <LinkContainer to="/new-product">
+                         <NavDropdown.Item>Create Product</NavDropdown.Item>
+                       </LinkContainer>
+                     </>
+                   )}
+                    {!user.isAdmin && (
+                      <>
+                      <LinkContainer to="/cart">
+                          <NavDropdown.Item>Cart</NavDropdown.Item>
+                           </LinkContainer>
+                           <LinkContainer to="/orders">
+                             <NavDropdown.Item>My orders</NavDropdown.Item>
+                        </LinkContainer>
+                      </>
+                    )}
+                    <NavDropdown.Divider />
+                      <Button variant="danger" onClick={handleLogout} className="logout-btn">
+                         Logout
+                      </Button>
+                  </NavDropdown>
+                )}
           </Nav>
         </Navbar.Collapse>
       </Container>
