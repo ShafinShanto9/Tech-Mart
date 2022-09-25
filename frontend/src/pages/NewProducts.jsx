@@ -3,6 +3,7 @@ import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useCreateProductMutation } from '../services/appApi';
 import "../styles/NewPrroducts.css"
+import axios from '../axios.js'
 
 const NewProducts = () => {
     const [name, setName] = useState("");
@@ -14,16 +15,44 @@ const NewProducts = () => {
     const navigate = useNavigate();
     const [createProduct, { isError, error, isLoading, isSuccess }] = useCreateProductMutation();
 
-    const handleSubmit = () => {
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!name || !description || !price || !category || !images.length) {
+            return alert("Please fill out all the fields");
+        }
+        createProduct({ name, description, price, category, images }).then(({ data }) => {
+            if (data.length > 0) {
+                setTimeout(() => {
+                    navigate("/");
+                }, 1500);
+            }
+        });
     }
 
     const showWidget = () => {
-        
+         const widget = window.cloudinary.createUploadWidget(
+            {
+                cloudName: "shanto09",
+                uploadPreset: "gqrps4br",
+            },
+            (error, result) => {
+                if (!error && result.event === "success") {
+                    setImages((prev) => [...prev, { url: result.info.url, public_id: result.info.public_id }]);
+                }
+            }
+        );
+        widget.open();
     }
 
-    const handleRemoveImg = () => {
-
+    const handleRemoveImg = (imgObj) => {
+        setImgToRemove(imgObj.public_id);
+        axios
+            .delete(`/images/${imgObj.public_id}/`)
+            .then((res) => {
+                setImgToRemove(null);
+                setImages((prev) => prev.filter((img) => img.public_id !== imgObj.public_id));
+            })
+            .catch((e) => console.log(e));
     }
 
   return (

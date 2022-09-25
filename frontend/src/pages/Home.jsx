@@ -6,6 +6,7 @@ import { Row, Col } from 'react-bootstrap'
 import '../styles/Home.css'
 
 const Home = () => {
+  
   return (
     <div className=" d-flex justify-content-center align-items-center">
       <div className='w-100'>
