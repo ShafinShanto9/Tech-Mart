@@ -84,13 +84,13 @@ const NewProducts = () => {
                                 <option disabled selected>
                                     -- Select One --
                                 </option>
-                                <option value="keyboard">keyboard</option>
-                                <option value="mouse">mouse</option>
-                                <option value="headphones">headphones</option>
-                                <option value="laptops">laptops</option>
-                                <option value="gaming-console">gaming-console</option>
-                                <option value="smart-wach">smart-wach</option>
-                                <option value="monitor">monitor</option>
+                                <option value="Keyboard">Keyboard</option>
+                                <option value="Mouse">Mouse</option>
+                                <option value="Headphones">Headphones</option>
+                                <option value="Laptops">Laptops</option>
+                                <option value="Gaming console">Gaming console</option>
+                                <option value="Smart wach">Smart watch</option>
+                                <option value="Monitor">Monitor</option>
                             </Form.Select>
                         </Form.Group>
 
