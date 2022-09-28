@@ -27,17 +27,21 @@ img.card-img-top.product-preview-img {
 }
 
 .sale__banner--container img {
-    max-width: 1200px;
     display: block;
     margin: 0 auto;
+    max-height: 600px;
 }
 
-/* Icon Style Here */
-.icon-style::before{
-    
-    color: red;
+.category-card{
+    gap: 10px;
+    background-color: #E8E9EB;
+    height: 150px;
+    cursor: pointer;
 }
-.icon::before{
-    height: 80px;
-    width: 80px;
+
+.category-text {
+    font-size: 18px;
+}
+.category-card:hover .category-text{
+    color: orangered;
 }

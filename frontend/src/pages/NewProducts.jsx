@@ -87,9 +87,8 @@ const NewProducts = () => {
                                 <option value="Keyboard">Keyboard</option>
                                 <option value="Mouse">Mouse</option>
                                 <option value="Headphones">Headphones</option>
-                                <option value="Laptops">Laptops</option>
-                                <option value="Gaming console">Gaming console</option>
-                                <option value="Smart wach">Smart watch</option>
+                                <option value="laptops">laptops</option>
+                                <option value="Gaming-console">Gaming console</option>
                                 <option value="Monitor">Monitor</option>
                             </Form.Select>
                         </Form.Group>

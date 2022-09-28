@@ -10,13 +10,14 @@ import "../styles/ProductPage.css"
 import axios from '../axios.js'
 import SimilarProduct from "../components/SimilarProduct";
 import Loading from "../components/Loading";
+import { useAddToCartMutation } from "../services/appApi";
 
 const ProductPage = () => {
     const { id } = useParams();
     const user = useSelector((state) => state.user);
     const [product, setProduct] = useState(null);
     const [similar, setSimilar] = useState(null);
-    // const [addToCart, { isSuccess }] = useAddToCartMutation();
+    const [addToCart, { isSuccess }] = useAddToCartMutation();
 
     const handleDragStart = (e) => e.preventDefault();
 
@@ -48,6 +49,7 @@ const ProductPage = () => {
         1024: { items: 3 },
     };
 
+    
   return (
     <Container className="pt-4" style={{ position: "relative" }}>
             <Row>
@@ -73,7 +75,7 @@ const ProductPage = () => {
                                 <option value="5">5</option>
                             </Form.Select>
                           <Button size="lg"
-                            //   onClick={() => addToCart({ userId: user._id, productId: id, price: product.price, image: product.pictures[0].url })}
+                              onClick={() => addToCart({ userId: user._id, productId: id, price: product.price, image: product.pictures[0].url })}
                           >
                                 Add to cart
                             </Button>
@@ -84,7 +86,7 @@ const ProductPage = () => {
                             <Button size="lg">Edit Product</Button>
                         </LinkContainer>
                     )}
-                    {/* {isSuccess && <ToastMessage bg="info" title="Added to cart" body={`${product.name} is in your cart`} />} */}
+                    {isSuccess && <ToastMessage bg="info" title="Added to cart" body={`${product.name} is in your cart`} />}
                 </Col>
             </Row>
             <div className="my-4">

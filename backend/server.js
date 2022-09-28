@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const http = require('http');
+require('dotenv').config();
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 require('./connection.js')
 
 const server = http.createServer(app);
@@ -24,7 +26,21 @@ app.use('/users', userRoutes)
 app.use('/products', productRoutes)
 app.use('/images', imagesRoute)
 
-
+app.post('/create-payment', async(req, res)=> {
+  const {amount} = req.body;
+  console.log(amount);
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: 'usd',
+      payment_method_types: ['card']
+    });
+    res.status(200).json(paymentIntent)
+  } catch (e) {
+    console.log(e.message);
+    res.status(400).json(e.message);
+   }
+})
 
 app.listen(5000, () => {
     console.log("Port Running on port", 5000 );

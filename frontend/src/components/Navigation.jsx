@@ -22,13 +22,24 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-                {/* if no user */}
-                  {!user && (
+              {!user && (
                       <LinkContainer to="/login">
                           <Nav.Link>Login</Nav.Link>
                       </LinkContainer>
               )}
-              {/* If User exists */}
+              {user && !user.isAdmin && (
+                  <LinkContainer to="/cartpage">
+                    <Nav.Link>
+                      <i className="fas fa-shopping-cart"></i>
+                        {user?.cart.count > 0 && (
+                          <span className="badge badge-warning" id="cartcount">
+                            {user.cart.count}
+                          </span>
+                        )}
+                    </Nav.Link>
+                  </LinkContainer>
+              )}
+              
               {
                 user && (
                   <NavDropdown className='email-text' title={`Welcome 😀 ${user.email}`} id="basic-nav-dropdown">
