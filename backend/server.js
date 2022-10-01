@@ -18,12 +18,14 @@ const User = require('./models/User')
 const userRoutes = require('./routes/userRoutes')
 const productRoutes = require('./routes/productRoutes')
 const imagesRoute = require('./routes/imagesRoute')
+const ordersRoute = require('./routes/ordersRoute')
 
 app.use(cors())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use('/users', userRoutes)
 app.use('/products', productRoutes)
+app.use('/orders', ordersRoute )
 app.use('/images', imagesRoute)
 
 app.post('/create-payment', async(req, res)=> {
