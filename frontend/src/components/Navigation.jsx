@@ -45,8 +45,8 @@ const Navigation = () => {
                   <NavDropdown className='email-text' title={`Welcome 😀 ${user.email}`} id="basic-nav-dropdown">
                   {user.isAdmin && (
                     <>
-                     <LinkContainer to="/dashboard">
-                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                     <LinkContainer to="/admin">
+                        <NavDropdown.Item>Admin Dashboard</NavDropdown.Item>
                           </LinkContainer>
                           <LinkContainer to="/new-product">
                          <NavDropdown.Item>Create Product</NavDropdown.Item>

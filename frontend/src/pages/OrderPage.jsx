@@ -31,7 +31,7 @@ const OrderPage = () => {
     if (orders.length === 0) {
         return <h1 className="text-center pt-3">No orders yet</h1>;
     }
-
+    console.log(orders);
   return (
     <Container>
         <h1 className="text-center">Your orders</h1>
