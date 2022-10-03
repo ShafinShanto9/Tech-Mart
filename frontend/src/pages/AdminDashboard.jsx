@@ -3,6 +3,8 @@ import { Container, Nav, Row, Tab,Col } from 'react-bootstrap'
 import axios from '../axios'
 import DashboardProducts from '../components/DashboardProducts'
 import '../styles/AdminDashboard.css'
+import ClientAdminPage from './ClientAdminPage'
+import { OrederAdminPage } from './OrederAdminPage'
 
 const AdminDashboard = () => {
   return (
@@ -28,10 +30,10 @@ const AdminDashboard = () => {
                                 <DashboardProducts />
                             </Tab.Pane>
                             <Tab.Pane eventKey="orders">
-                                {/* <OrdersAdminPage /> */}
+                                <OrederAdminPage/>
                             </Tab.Pane>
                             <Tab.Pane eventKey="clients">
-                                {/* <ClientsAdminPage /> */}
+                                <ClientAdminPage />
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>
